@@ -22,12 +22,7 @@ dispatch_source_t timer;
     NSDictionary *router = [LDSRouterInfo getRouterInfo];
     pinger = [[SimplePing alloc] initWithHostName:router[@"ip"]];
     pinger.delegate = self;
-    timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
-    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
-    dispatch_source_set_event_handler(timer, ^{
-        [self->pinger start];
-    });
-    dispatch_resume(timer);
+    [self->pinger start];
     
 }
 - (void)simplePing:(SimplePing *)pinger didStartWithAddress:(NSData *)address {
